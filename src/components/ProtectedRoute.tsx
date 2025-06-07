@@ -1,6 +1,6 @@
 
 import { useAuth } from '@/hooks/useAuth'
-import { useRouter } from 'next/router'
+import { useNavigate } from 'react-router-dom'
 import { useEffect } from 'react'
 
 interface ProtectedRouteProps {
@@ -9,13 +9,13 @@ interface ProtectedRouteProps {
 
 const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
   const { user, loading } = useAuth()
-  const router = useRouter()
+  const navigate = useNavigate()
 
   useEffect(() => {
     if (!loading && !user) {
-      router.push('/login')
+      navigate('/login')
     }
-  }, [user, loading, router])
+  }, [user, loading, navigate])
 
   if (loading) {
     return (
